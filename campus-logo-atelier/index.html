@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus — Atelier couleurs du logo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2B2035;--cream:#FAF8F5;--line:rgba(43,32,53,.12);--muted:#6E6578}
+*{box-sizing:border-box}
+body{margin:0;background:#F2EFEA;color:var(--ink);font-family:"Plus Jakarta Sans",ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.top{position:sticky;top:0;z-index:5;background:rgba(242,239,234,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{max-width:1320px;margin:0 auto;padding:16px 28px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+h1{font-size:19px;letter-spacing:-.02em;margin:0 12px 0 0;white-space:nowrap}
+.models{display:flex;gap:8px;flex:1;min-width:0;overflow-x:auto;padding-bottom:2px}
+.model{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:#fff;border-radius:14px;padding:8px 14px 8px 10px;cursor:pointer;display:flex;gap:9px;align-items:center;white-space:nowrap;color:var(--ink);flex:none}
+.model svg{width:26px;height:26px}
+.model:hover{border-color:rgba(43,32,53,.35)}
+.model.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.model .plus{width:26px;height:26px;border-radius:50%;background:conic-gradient(#F8532F,#FFC83D,#A8D134,#4CB6DA,#9D8BEF,#FA738B,#F8532F);display:block}
+.custom{max-width:1320px;margin:0 auto;padding:0 28px 16px;display:none;gap:24px;flex-wrap:wrap;align-items:flex-end}
+.custom.open{display:flex}
+.slot{min-width:250px}
+.slot-h{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:8px}
+.slot-h span{font-weight:600;color:var(--muted);font-size:11px;font-family:ui-monospace,Menlo,monospace}
+.sw{display:grid;grid-template-columns:repeat(12,1fr);gap:5px}
+.sw button{width:22px;height:22px;border-radius:50%;border:none;cursor:pointer;padding:0;outline-offset:2px}
+.sw button.on{outline:2px solid var(--ink)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 14px;cursor:pointer}
+.btn:hover{background:#F6F3FF}
+.btn.dark{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.toast{font-size:12px;color:var(--muted)}
+main{max-width:1320px;margin:0 auto;padding:24px 28px 64px;display:flex;flex-direction:column;gap:20px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.card{background:#fff;border-radius:22px;overflow:hidden;border:1px solid rgba(43,32,53,.06);display:flex;flex-direction:column;min-width:0}
+.st{flex:1;display:grid;place-items:center;padding:28px;min-height:220px}
+.cap{font-size:12px;font-weight:700;color:var(--muted);padding:12px 18px;border-top:1px solid rgba(43,32,53,.06);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.cream{background:var(--cream)}.ink{background:var(--ink)}.tint{background:#EEEAFD}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c4{grid-column:span 4}
+.hero .st{min-height:340px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+.hero svg{width:min(620px,80%);height:auto}
+.tag{font-weight:800;font-size:28px;letter-spacing:-.02em}
+.sym{width:150px;height:auto}
+.icon{width:132px;height:132px;border-radius:32px;background:var(--ink);display:grid;place-items:center}.icon svg{width:80px}
+.sizes{display:flex;gap:28px;align-items:flex-end}.sizes div{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;color:var(--muted);font-weight:600}
+.inkLogo{min-height:300px}.inkLogo svg{width:min(500px,72%);height:auto}
+.anim svg{width:190px;overflow:visible}
+.animsel{display:flex;gap:6px;flex-wrap:wrap}
+.sectionh{display:flex;justify-content:space-between;align-items:baseline}.sectionh h2{margin:0;font-size:18px;letter-spacing:-.02em}
+.pins{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.pin{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;position:relative;display:flex;flex-direction:column;gap:8px;align-items:center}
+.pin:hover{border-color:var(--ink)}.pin svg{width:64px}.pin b{font-size:12px;text-align:center}
+.pin .x{position:absolute;top:6px;right:8px;border:none;background:none;font-size:16px;cursor:pointer;color:var(--muted)}
+.pin .hex{font-size:10px;color:var(--muted);font-family:ui-monospace,Menlo,monospace;text-align:center}
+.empty{font-size:13px;color:var(--muted)}
+@media (max-width:1000px){.c8,.c4{grid-column:span 12}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="bar"><h1>Atelier couleurs</h1><div class="models" id="models"></div><button class="btn dark" id="pinBtn">Épingler</button><span class="toast" id="toast2"></span><span id="curName" style="font-size:13px;font-weight:600;color:var(--muted)"></span></div>
+  <div class="custom" id="custom">
+    <div id="slots" style="display:flex;gap:24px;flex-wrap:wrap"></div>
+    <div class="acts"><button class="btn" id="rot">↻ Faire tourner</button><button class="btn" id="swapLR">⇅ Gauche / bas</button><button class="btn" id="copy">Copier les valeurs</button><span class="toast" id="toast"></span></div>
+  </div>
+</div>
+<main>
+  <div class="grid">
+    <section class="card hero c12"><div class="st cream" id="hero"></div><div class="cap"><span>Logo horizontal + slogan</span><span id="heroName"></span></div></section>
+    <section class="card c4"><div class="st cream" id="symCream"></div><div class="cap">Symbole · crème</div></section>
+    <section class="card c4"><div class="st ink" id="symInk"></div><div class="cap">Symbole · encre</div></section>
+    <section class="card c4"><div class="st tint" id="appIcon"></div><div class="cap">Icône d’app</div></section>
+    <section class="card c8"><div class="st ink inkLogo" id="logoInk"></div><div class="cap">Logo renversé · encre (mot en crème)</div></section>
+    <section class="card c4"><div class="st cream" id="sizes"></div><div class="cap">Petites tailles</div></section>
+    <section class="card c12 anim"><div class="st cream" id="anim" style="min-height:300px"></div><div class="cap"><span>Animation avec ces couleurs</span><span class="animsel"><span class="animsel" id="animSel"></span><button class="btn" id="replay">Rejouer</button></span></div></section>
+  </div>
+  <div class="sectionh"><h2>Épinglées</h2><button class="btn" id="clearPins">Tout retirer</button></div>
+  <div class="pins" id="pins"></div>
+</main>
+<script>
+const LOGO={w:1032.8,h:244.5,arcs:{
+top:{x:64.88630676269531,y:0.6615142822265625,d:"M 12.33769416809082 9.54448413848877 C 38.14469337463379 -0.9302158355712891 66.83629035949707 -2.8441162109375 93.89669036865234 4.1039838790893555 C 120.95718955993652 11.052083969116211 144.84999656677246 26.467683792114258 161.814697265625 47.92448425292969 C 173.72389698028564 62.987284660339355 165.5699920654297 90.54128074645996 142.03369140625 95.24858093261719 C 138.31369137763977 95.96858096122742 136.39370119571686 94.28858232498169 135.793701171875 89.96858215332031 C 133.75370121002197 76.76858234405518 123.91369533538818 63.088483810424805 114.2356948852539 56.00148391723633 C 99.31029510498047 45.17238426208496 81.09179496765137 39.21938514709473 62.30479431152344 39.03258514404297 C 43.51779365539551 38.84588514268398 25.17189311981201 44.435484886169434 10.010693550109863 54.965484619140625 C -4.949306488037109 39.53948497772217 -2.2913055419921875 19.36448383331299 12.33769416809082 9.54448413848877 Z"},
+left:{x:0.0113525390625,y:10.2060546875,d:"M 31.612651824951172 192.48001098632812 C 18.353014945983887 178.02076053619385 8.857244729995728 160.73052406311035 3.910107374191284 142.03826904296875 C -1.0370299816131592 123.34601402282715 -1.2934849262237549 103.78845024108887 3.161938428878784 84.98187255859375 C 7.617361783981323 66.17529487609863 16.6567325592041 48.65971565246582 29.533000946044922 33.8826904296875 C 42.40926933288574 19.10566520690918 58.75272750854492 7.491477966308594 77.21266174316406 0 C 62.583662033081055 9.819999694824219 59.92563533782959 29.994990348815918 74.88563537597656 45.420989990234375 C 63.79619121551514 53.12311553955078 54.78716707229614 63.20860958099365 48.59647750854492 74.85137939453125 C 42.4057879447937 86.49414920806885 39.20954241231084 99.36299800872803 39.2695426940918 112.40383911132812 C 39.329542975872755 125.44468021392822 42.644104957580566 138.28653621673584 48.94169235229492 149.8775634765625 C 55.23927974700928 161.46859073638916 64.3407621383667 171.4790496826172 75.50065612792969 179.0889892578125 C 65.34065628051758 197.96998977661133 45.75565147399902 202.1580114364624 31.612651824951172 192.48001098632812 Z"},
+bottom:{x:31.624008178710938,y:148.4288330078125,d:"M 147.4980010986328 39.408199310302734 C 157.1760015487671 32.32119941711426 167.01599979400635 18.64119863510132 169.05599975585938 5.441198825836182 C 169.65599977970123 1.1211986541748047 171.5760052204132 -0.5588010549545288 175.29600524902344 0.16119897365570068 C 198.85490608215332 4.720999121665955 206.98699569702148 32.429598808288574 195.07699584960938 47.485198974609375 C 183.7630958557129 61.78709888458252 169.29559707641602 73.49439525604248 152.716796875 81.76359558105469 C 136.13799667358398 90.03269577026367 117.86080360412598 94.65779620409012 99.20210266113281 95.30549621582031 C 80.54330253601074 95.9531962275505 61.96769905090332 92.60750007629395 44.8135986328125 85.5093002319336 C 27.659399032592773 78.4112000465393 12.354000091552734 67.73749828338623 0 54.257198333740234 C 14.142999649047852 63.93519878387451 33.72800064086914 59.74720001220703 43.88800048828125 40.8661994934082 C 59.0398006439209 51.19839954376221 77.29060173034668 56.634497821331024 95.94670104980469 56.37199783325195 C 114.60270118713379 56.10939782857895 132.6756010055542 50.162299156188965 147.4980010986328 39.408199310302734 Z"}},
+word:[
+{x:250.79998779296875,y:57.399993896484375,d:"M 135.29998779296875 1.29998779296875 L 135.29998779296875 131.79998779296875 L 112.5999755859375 131.79998779296875 L 112.5999755859375 111.10000610351562 C 107.29997539520264 118.40000629425049 100.69997596740723 123.90001225471497 92.5999755859375 127.70001220703125 C 84.5999755859375 131.40001225471497 75.69999980926514 133.29998779296875 66 133.29998779296875 C 53.39999961853027 133.29998779296875 42.10000038146973 130.49999380111694 32 124.89999389648438 C 22 119.39999389648438 14.099993705749512 111.60000038146973 8.399993896484375 101.5 C 2.7999939918518066 91.39999961853027 0 79.70000648498535 0 66.60000610351562 C 0 53.40000629425049 2.7999939918518066 41.79998779296875 8.399993896484375 31.79998779296875 C 14.099993705749512 21.79998779296875 22 13.999993801116943 32 8.399993896484375 C 42.10000038146973 2.7999939918518066 53.39999961853027 0 66 0 C 75.39999961853027 0 84.00002431869507 1.7999939918518066 91.9000244140625 5.399993896484375 C 99.80002450942993 8.899993896484375 106.39997577667236 14.099999904632568 111.5999755859375 21 L 111.5999755859375 1.29998779296875 L 135.29998779296875 1.29998779296875 Z M 68 112.60000610351562 C 76.19999980926514 112.60000610351562 83.70002460479736 110.70000004768372 90.4000244140625 107 C 97.20002460479736 103 102.40001225471497 97.60001230239868 106.20001220703125 90.70001220703125 C 110.00001215934753 83.60001230239868 111.9000244140625 75.60000610351562 111.9000244140625 66.60000610351562 C 111.9000244140625 57.5000057220459 110.00001215934753 49.60001230239868 106.20001220703125 42.70001220703125 C 102.40001225471497 35.60001230239868 97.20002460479736 30.19999384880066 90.4000244140625 26.399993896484375 C 83.70002460479736 22.59999394416809 76.19999980926514 20.70001220703125 68 20.70001220703125 C 59.60000038146973 20.70001220703125 52.09998798370361 22.59999394416809 45.29998779296875 26.399993896484375 C 38.79998779296875 30.19999384880066 33.49997568130493 35.60001230239868 29.5999755859375 42.70001220703125 C 25.799975633621216 49.60001230239868 23.9000244140625 57.5000057220459 23.9000244140625 66.60000610351562 C 23.9000244140625 75.60000610351562 25.799975633621216 83.60001230239868 29.5999755859375 90.70001220703125 C 33.49997568130493 97.60001230239868 38.79998779296875 103 45.29998779296875 107 C 52.09998798370361 110.70000004768372 59.60000038146973 112.60000610351562 68 112.60000610351562 Z"},
+{x:404.39996337890625,y:57.399993896484375,d:"M 163.4000244140625 0 C 179.80002403259277 0 192.800048828125 4.79998779296875 202.300048828125 14.29998779296875 C 212.00004863739014 23.79998779296875 216.800048828125 38.0000114440918 216.800048828125 56.70001220703125 L 216.800048828125 131.79998779296875 L 193.20001220703125 131.79998779296875 L 193.20001220703125 59.399993896484375 C 193.20001220703125 46.79999351501465 190.20004892349243 37.19998788833618 184.300048828125 30.79998779296875 C 178.60004901885986 24.39998769760132 170.30002403259277 21.20001220703125 159.4000244140625 21.20001220703125 C 147.4000244140625 21.20001220703125 137.90004873275757 25 130.800048828125 32.5 C 123.800048828125 39.90000009536743 120.20001220703125 50.600006103515625 120.20001220703125 64.60000610351562 L 120.20001220703125 131.79998779296875 L 96.60003662109375 131.79998779296875 L 96.60003662109375 59.399993896484375 C 96.60003662109375 46.79999351501465 93.60001230239868 37.19998788833618 87.70001220703125 30.79998779296875 C 82.00001239776611 24.39998769760132 73.70004844665527 21.20001220703125 62.800048828125 21.20001220703125 C 50.800048828125 21.20001220703125 41.30001211166382 25 34.20001220703125 32.5 C 27.20001220703125 39.90000009536743 23.70001220703125 50.600006103515625 23.70001220703125 64.60000610351562 L 23.70001220703125 131.79998779296875 L 0 131.79998779296875 L 0 1.29998779296875 L 22.70001220703125 1.29998779296875 L 22.70001220703125 20.70001220703125 C 27.400012016296387 14.000012397766113 33.70002460479736 8.899993896484375 41.4000244140625 5.399993896484375 C 49.10002422332764 1.7999939918518066 57.90004920959473 0 67.800048828125 0 C 77.90004920959473 0 87.00002431869507 2.1000123023986816 94.9000244140625 6.20001220703125 C 102.70002460479736 10.300012111663818 108.80003643035889 16.30001211166382 113.10003662109375 24.20001220703125 C 118.00003671646118 16.60001230239868 124.80000019073486 10.699994087219238 133.5 6.399993896484375 C 142.39999961853027 2.1999940872192383 152.4000244140625 0 163.4000244140625 0 Z"},
+{x:639.2000122070312,y:57.399993896484375,d:"M 69.29998779296875 0 C 81.89998817443848 0 93.19998741149902 2.7999939918518066 103.29998779296875 8.399993896484375 C 113.29998779296875 13.999993801116943 121.09995126724243 21.79998779296875 126.699951171875 31.79998779296875 C 132.39995098114014 41.79998779296875 135.29998779296875 53.40000629425049 135.29998779296875 66.60000610351562 C 135.29998779296875 79.70000648498535 132.39995098114014 91.39999961853027 126.699951171875 101.5 C 121.09995126724243 111.60000038146973 113.29998779296875 119.39999389648438 103.29998779296875 124.89999389648438 C 93.19998741149902 130.49999380111694 81.89998817443848 133.29998779296875 69.29998779296875 133.29998779296875 C 59.89998817443848 133.29998779296875 51.29996347427368 131.49999380111694 43.39996337890625 127.89999389648438 C 35.69996356964111 124.2999939918518 29.09995126724243 119.00000619888306 23.699951171875 112.10000610351562 L 23.699951171875 179.5999755859375 L 0 179.5999755859375 L 0 1.29998779296875 L 22.699951171875 1.29998779296875 L 22.699951171875 22 C 27.899950981140137 14.699999809265137 34.5999755859375 9.300012111663818 42.5999755859375 5.70001220703125 C 50.69997596740723 1.9000122547149658 59.59998798370361 0 69.29998779296875 0 Z M 67.29998779296875 112.60000610351562 C 75.69998741149902 112.60000610351562 83.09995126724243 110.70000004768372 89.699951171875 107 C 96.39995098114014 103 101.70000004768372 97.60001230239868 105.5 90.70001220703125 C 109.40000009536743 83.60001230239868 111.39996337890625 75.60000610351562 111.39996337890625 66.60000610351562 C 111.39996337890625 57.5000057220459 109.40000009536743 49.60001230239868 105.5 42.70001220703125 C 101.70000004768372 35.60001230239868 96.39995098114014 30.19999384880066 89.699951171875 26.399993896484375 C 83.09995126724243 22.59999394416809 75.69998741149902 20.70001220703125 67.29998779296875 20.70001220703125 C 59.09998798370361 20.70001220703125 51.59996318817139 22.700006008148193 44.89996337890625 26.600006103515625 C 38.29996347427368 30.40000605583191 32.99997568130493 35.80001211166382 29.0999755859375 42.70001220703125 C 25.299975633621216 49.60001230239868 23.39996337890625 57.5000057220459 23.39996337890625 66.60000610351562 C 23.39996337890625 75.60000610351562 25.299975633621216 83.60001230239868 29.0999755859375 90.70001220703125 C 32.899975538253784 97.60001230239868 38.09996318817139 103 44.89996337890625 107 C 51.59996318817139 110.70000004768372 59.09998798370361 112.60000610351562 67.29998779296875 112.60000610351562 Z"},
+{x:787.4999389648438,y:58.699981689453125,d:"M 123 0 L 123 130.5 L 100.60009765625 130.5 L 100.60009765625 110.80001831054688 C 95.80009746551514 117.60001850128174 89.50009775161743 122.80000615119934 81.60009765625 126.60000610351562 C 73.90009784698486 130.2000060081482 65.40007305145264 132 56.2000732421875 132 C 38.80007362365723 132 25.10009765625 127.30001258850098 15.10009765625 117.70001220703125 C 5.10009765625 108.00001239776611 0 93.80000686645508 0 75.10000610351562 L 0 0 L 23.7000732421875 0 L 23.7000732421875 72.4000244140625 C 23.7000732421875 85.00002479553223 26.70004892349243 94.70001220703125 32.800048828125 101.20001220703125 C 38.90004873275757 107.60001230239868 47.60002422332764 110.80001831054688 58.9000244140625 110.80001831054688 C 71.4000244140625 110.80001831054688 81.30000019073486 107.09999990463257 88.5 99.5 C 95.69999980926514 91.90000009536743 99.300048828125 81.30000019073486 99.300048828125 67.5 L 99.300048828125 0 L 123 0 Z"},
+{x:921.4999389648438,y:57.399993896484375,d:"M 54 133.29998779296875 C 43.30000019073486 133.29998779296875 33.00007343292236 131.9000060558319 23.2000732421875 129.10000610351562 C 13.300073623657227 126.2000060081482 5.599999904632568 122.5 0 118 L 9.9000244140625 99.29998779296875 C 15.600024223327637 103.39998769760132 22.600049018859863 106.70001220703125 30.800048828125 109.20001220703125 C 39.00004863739014 111.60001230239868 47.30007362365723 112.89999389648438 55.7000732421875 112.89999389648438 C 76.40007400512695 112.89999389648438 86.800048828125 107.0000057220459 86.800048828125 95.10000610351562 C 86.800048828125 91.2000060081482 85.40009760856628 88.09998774528503 82.60009765625 85.79998779296875 C 79.80009770393372 83.49998784065247 76.19999980926514 81.79998779296875 72 80.79998779296875 C 67.90000009536743 79.69998776912689 61.90007305145264 78.50000607967377 54.2000732421875 77.10000610351562 C 43.7000732421875 75.50000607967377 35.10002422332764 73.59999990463257 28.4000244140625 71.5 C 21.80002450942993 69.29999995231628 16.100024223327637 65.7000060081482 11.4000244140625 60.600006103515625 C 6.600024223327637 55.50000619888306 4.2000732421875 48.40001201629639 4.2000732421875 39.20001220703125 C 4.2000732421875 27.400012016296387 9.100000381469727 17.899993896484375 19 10.899993896484375 C 28.899999618530273 3.5999937057495117 42.10007286071777 0 58.7000732421875 0 C 67.40007305145264 0 76.10004901885986 1.1000123023986816 84.800048828125 3.20001220703125 C 93.50004863739014 5.400012254714966 100.60007333755493 8.19999384880066 106.2000732421875 11.899993896484375 L 96.10009765625 30.600006103515625 C 85.40009784698486 23.700006008148193 72.9000244140625 20.20001220703125 58.4000244140625 20.20001220703125 C 48.4000244140625 20.20001220703125 40.80000019073486 21.900012254714966 35.5 25.20001220703125 C 30.199999809265137 28.400012254714966 27.60009765625 32.80001211166382 27.60009765625 38.20001220703125 C 27.60009765625 42.50001239776611 29.10009765625 45.89998769760132 32.10009765625 48.29998779296875 C 35.00009775161743 50.79998779296875 38.60002422332764 52.60001218318939 42.9000244140625 53.70001220703125 C 47.30002450942993 54.900012254714966 53.50002431869507 56.20001220703125 61.4000244140625 57.70001220703125 C 71.9000244140625 59.500012159347534 80.300048828125 61.50000619888306 86.800048828125 63.600006103515625 C 93.300048828125 65.60000610351562 98.90000009536743 68.99999380111694 103.5 73.89999389648438 C 108.09999990463257 78.89999389648438 110.4000244140625 85.80000591278076 110.4000244140625 94.60000610351562 C 110.4000244140625 106.5000057220459 105.30009746551514 115.90000009536743 95.10009765625 123 C 85.10009765625 129.90000009536743 71.39999961853027 133.29998779296875 54 133.29998779296875 Z"}]};
+
+
+/* ---------- Easing ---------- */
+function bez(x1,y1,x2,y2){const A=(a,b)=>1-3*b+3*a,B=(a,b)=>3*b-6*a,C=a=>3*a;
+  const f=(t,a,b)=>((A(a,b)*t+B(a,b))*t+C(a))*t,df=(t,a,b)=>3*A(a,b)*t*t+2*B(a,b)*t+C(a);
+  return x=>{if(x<=0)return 0;if(x>=1)return 1;let t=x;for(let i=0;i<8;i++){const d=df(t,x1,x2);if(Math.abs(d)<1e-6)break;t-=(f(t,x1,x2)-x)/d;}return f(t,y1,y2);};}
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const ss=(a,b,x)=>{const t=cl((x-a)/(b-a));return t*t*(3-2*t);};
+
+
+/* ---------- Final C geometry (symbol component, 195 × 205) ---------- */
+const PIECES=[ // draw order: bottom → top
+ {name:'lime',color:'#A8D134',ox:26.420013427734375,oy:124.1656265258789,d:"M 122.91500091552734 32.84042739868164 C 130.98000049591064 26.93442726135254 139.18000483512878 15.53442668914795 140.8800048828125 4.534426689147949 C 141.3800048828125 0.9344267845153809 142.98000192642212 -0.4656735360622406 146.0800018310547 0.1343264877796173 C 165.71240234375 3.934226542711258 172.4890956878662 27.025127410888672 162.56399536132812 39.571327209472656 C 153.13579559326172 51.48962688446045 141.07950115203857 61.245627880096436 127.26380157470703 68.13652801513672 C 113.44810199737549 75.027428150177 98.21709728240967 78.88152569532394 82.66819763183594 79.42132568359375 C 67.1192979812622 79.96102565526962 51.639601707458496 77.17292785644531 37.34450149536133 71.25782775878906 C 23.049501419067383 65.34272766113281 10.295000076293945 56.44792461395264 0 45.214324951171875 C 11.78600025177002 53.279324531555176 28.10700225830078 49.789427757263184 36.573001861572266 34.05542755126953 C 49.199602127075195 42.66562747955322 64.40859889984131 47.19572488963604 79.95539855957031 46.976924896240234 C 95.50219821929932 46.75812490284443 110.56300067901611 41.802127838134766 122.91500091552734 32.84042739868164 Z",ext:true},
+ {name:'lilac',color:'#9D8BEF',ox:0.07611083984375,oy:8.980010986328125,d:"M 26.343902587890625 160.39999389648438 C 15.294204711914062 148.35061836242676 7.38103723526001 133.94208335876465 3.2584228515625 118.36520385742188 C -0.8641915321350098 102.7883243560791 -1.077904224395752 86.49035453796387 2.63494873046875 70.81820678710938 C 6.347801685333252 55.14605903625488 13.880616188049316 40.549753189086914 24.61083984375 28.235565185546875 C 35.341063499450684 15.921377182006836 48.9606237411499 6.242898464202881 64.34390258789062 0 C 52.152902603149414 8.182999610900879 49.93787670135498 24.995983123779297 62.404876708984375 37.850982666015625 C 53.163644790649414 44.26938343048096 45.65608263015747 52.67393398284912 40.49713134765625 62.376220703125 C 35.33818006515503 72.07850742340088 32.67459688708186 82.80252361297607 32.72454833984375 93.66989135742188 C 32.77449979260564 104.53725910186768 35.536569595336914 115.23883056640625 40.784515380859375 124.89804077148438 C 46.032461166381836 134.5572509765625 53.61701774597168 142.8993434906006 62.916900634765625 149.24099731445312 C 54.45090103149414 164.97499752044678 38.129902839660645 168.46499347686768 26.343902587890625 160.39999389648438 Z",ext:true},
+ {name:'coral',color:'#F8532F',ox:54.13848114013672,oy:1.026190161705017,d:"M 10.281509399414062 7.953794002532959 C 31.787309646606445 -0.7751059532165527 55.69690704345703 -2.3701059818267822 78.24720764160156 3.419893980026245 C 100.797607421875 9.209893941879272 120.7082052230835 22.056194305419922 134.8455047607422 39.93679428100586 C 144.76990509033203 52.489094734191895 137.97511100769043 75.45109462738037 118.36151123046875 79.37379455566406 C 115.26151132583618 79.97379457950592 113.66150665283203 78.57379293441772 113.16150665283203 74.97379302978516 C 111.46150660514832 63.973793029785156 103.2615098953247 52.57379341125488 95.1965103149414 46.66779327392578 C 82.75861072540283 37.643592834472656 67.57661056518555 32.68279415369034 51.92081069946289 32.52729415893555 C 36.265010833740234 32.371694162487984 20.97680950164795 37.029794692993164 8.342509269714355 45.80479431152344 C -4.124490737915039 32.94979476928711 -1.9094905853271484 16.136793613433838 10.281509399414062 7.953794002532959 Z",ext:false}
+];
+const ROX=105.2,ROY=101.3,RIX=72.5,RIY=68.8,TAU=Math.PI*2;
+
+function parse(d,ox,oy){const t=d.trim().split(/\s+/);const pts=[];let i=0,cx=0,cy=0;
+  while(i<t.length){const c=t[i++];
+    if(c==='M'){cx=+t[i++]+ox;cy=+t[i++]+oy;pts.push([cx,cy]);}
+    else if(c==='C'){const a=[+t[i++]+ox,+t[i++]+oy,+t[i++]+ox,+t[i++]+oy,+t[i++]+ox,+t[i++]+oy];
+      for(let k=1;k<=28;k++){const u=k/28,v=1-u;pts.push([v*v*v*cx+3*v*v*u*a[0]+3*v*u*u*a[2]+u*u*u*a[4],v*v*v*cy+3*v*v*u*a[1]+3*v*u*u*a[3]+u*u*u*a[5]]);}
+      cx=a[4];cy=a[5];}
+    else if(c==='Z'){}
+  }return pts;}
+PIECES.forEach(p=>p.xy=parse(p.d,p.ox,p.oy));
+let minX=1e9,minY=1e9,maxY=-1e9;PIECES.forEach(p=>p.xy.forEach(([x,y])=>{minX=Math.min(minX,x);minY=Math.min(minY,y);maxY=Math.max(maxY,y);}));
+const CX=minX+ROX,CY=(minY+maxY)/2;
+
+function toRing(x,y){const dx=x-CX,dy=y-CY;let rho=.5,phi=0;
+  for(let k=0;k<10;k++){const rx=RIX+(ROX-RIX)*rho,ry=RIY+(ROY-RIY)*rho;phi=Math.atan2(dy/ry,dx/rx);
+    const c=Math.cos(phi),s=Math.sin(phi);const L0=Math.hypot(RIX*c,RIY*s),L1=Math.hypot(ROX*c,ROY*s);rho=(Math.hypot(dx,dy)-L0)/(L1-L0);}
+  if(phi<0)phi+=TAU;return [phi,rho];}
+function fromRing(phi,rho){const rx=RIX+(ROX-RIX)*rho,ry=RIY+(ROY-RIY)*rho;return [CX+rx*Math.cos(phi),CY+ry*Math.sin(phi)];}
+
+const CAP=16.3/87; // half ring thickness in radians (approx.)
+PIECES.forEach(p=>{p.ring=p.xy.map(([x,y])=>toRing(x,y));p.min=Math.min(...p.ring.map(r=>r[0]));p.max=Math.max(...p.ring.map(r=>r[0]));
+  p.center=(p.min+p.max)/2;p.L0=p.max-p.min;
+  // resample real outline & a clean capsule with matching anchors so they can morph point-to-point
+  const EZ=0.36,SC=[87,32.6];const R=p.ring;const n=R.length;
+  const near=(tp,tr)=>{let bi=0,bd=1e9;R.forEach(([a,b],i)=>{const d=Math.hypot((a-tp)*SC[0],(b-tr)*SC[1]);if(d<bd){bd=d;bi=i;}});return bi;};
+  let ia=near(p.min+EZ,1),ib=near(p.max-EZ,1),ic=near(p.max-EZ,0),id=near(p.min+EZ,0);
+  const fwd=(i,j)=>(j-i+n)%n;let pts=R;
+  if(fwd(ia,ib)>fwd(ia,id)){pts=R.slice().reverse();const m=x=>n-1-x;[ia,ib,ic,id]=[m(ia),m(ib),m(ic),m(id)];}
+  const seg=(i,j)=>{const o=[];let k=i;o.push(pts[k]);while(k!==j){k=(k+1)%n;o.push(pts[k]);}return o;};
+  const rs=(arr,N)=>{const L=[0];for(let i=1;i<arr.length;i++)L.push(L[i-1]+Math.hypot((arr[i][0]-arr[i-1][0])*SC[0],(arr[i][1]-arr[i-1][1])*SC[1]));const tot=L[L.length-1]||1;const o=[];let j=0;
+    for(let k=0;k<N;k++){const tg=tot*k/N;while(j<arr.length-2&&L[j+1]<tg)j++;const u=(tg-L[j])/((L[j+1]-L[j])||1);o.push([lerp(arr[j][0],arr[j+1][0],u),lerp(arr[j][1],arr[j+1][1],u)]);}return o;};
+  const NS_=[90,70,90,70];
+  const realSegs=[seg(ia,ib),seg(ib,ic),seg(ic,id),seg(id,ia)];
+  const capEnd=(edge,dir)=>{const base=dir>0?p.max:p.min;const o=[];const e0=base-dir*EZ,e1=base-dir*CAP;
+    const r0=dir>0?1:0;o.push([e0,r0]);o.push([e1,r0]);for(let k=1;k<24;k++){const th=Math.PI*k/24;const rr=dir>0?.5+.5*Math.cos(th):.5-.5*Math.cos(th);o.push([e1+dir*CAP*Math.sin(th),rr]);}o.push([e1,1-r0]);o.push([e0,1-r0]);return o;};
+  const capSegs=[[[p.min+EZ,1],[p.max-EZ,1]],capEnd(0,1),[[p.max-EZ,0],[p.min+EZ,0]],capEnd(0,-1)];
+  p.ring=[];p.cap=[];realSegs.forEach((sg,k)=>{p.ring.push(...rs(sg,NS_[k]));p.cap.push(...rs(capSegs[k],NS_[k]));});
+  if(p.ext){ // uncut continuation hidden under the piece above: band + round cap
+    const a=p.max-0.38,b=p.max+0.12,e=[];
+    for(let k=0;k<=24;k++)e.push([a+(b-a)*k/24,1]);
+    for(let k=1;k<24;k++){const th=Math.PI*k/24;e.push([b+CAP*Math.sin(th),.5+.5*Math.cos(th)]);}
+    for(let k=24;k>=0;k--)e.push([a+(b-a)*k/24,0]);
+    p.extRing=e;p.extCap=e.map(([phi,rho])=>{const r=cl(rho);const bulge=CAP*Math.sqrt(Math.max(0,1-(2*r-1)**2));return [Math.min(p.max-CAP+bulge,phi),r];});}
+});
+
+/* ---------- Render one piece given tail T / head H (absolute angles) ---------- */
+const E=0.24; // rigid end zones (keep caps & lobes undistorted)
+function mapPhi(phi,p,T,H){const L=H-T;
+  if(L>=2*E){if(phi<=p.min+E)return T+(phi-p.min);if(phi>=p.max-E)return H-(p.max-phi);
+    return T+E+(phi-(p.min+E))*(L-2*E)/(p.L0-2*E);}
+  const s=L/(2*E);if(phi<=p.min+E)return T+(phi-p.min)*s;if(phi>=p.max-E)return H-(p.max-phi)*s;return (T+H)/2;}
+function shape(ring,p,st,cap){let d='';const m=st.m==null?1:st.m;for(let i=0;i<ring.length;i++){let [phi,rho]=ring[i];if(cap&&m<1){phi=lerp(cap[i][0],phi,m);rho=lerp(cap[i][1],rho,m);}
+    const q=mapPhi(phi,p,st.T,st.H);const u=cl((q-st.T)/Math.max(1e-3,st.H-st.T));
+    const k=st.k?st.k(u):1;const [x,y]=fromRing(q,.5+(rho-.5)*k*(st.w||1));
+    d+=(i?'L':'M')+x.toFixed(2)+' '+y.toFixed(2);}return d+'Z';}
+// liquid thickness: thinner in the middle and slightly swollen at the leading end when fast
+function liquid(vT,vH,amt=1){const s=cl(Math.max(Math.abs(vT),Math.abs(vH))/7)*amt;const lead=vH>=vT?1:0;
+  return u=>1-0.10*s*Math.sin(Math.PI*u)+0.06*s*(lead?ss(.72,1,u):ss(.72,1,1-u));}
+
+/* ---------- The four animations: return per-piece {T,H,o} at time t ---------- */
+const F=PIECES.map(p=>({min:p.min,max:p.max,c:p.center,L:p.L0}));
+const A={};
+// 1 — Spinner : three short arcs spin like a loader, decelerate and unfurl into the C
+A.spinner={dur:2.9,fn(t){return F.map((f,i)=>{const d=[0.10,0.05,0][i];
+  const p=bez(.72,0,.22,1.035)(cl((t-d)/2.35));const q=bez(.5,0,.2,1)(cl((t-0.75-d)/1.75));
+  return {c:f.c-TAU*1.15*(1-p),L:lerp(0.5,f.L,q),o:ss(0,.25,t)};});}};
+// 1b — Spinner + resolve : spinner start (from rest), loader-style resolution, same length as 01
+A.spinres={dur:3.3,fn(t){const P=1.3;const R=bez(.4,0,.2,1)(cl((t-0.5)/1.9));
+  const turns=[2.404,2.036,1.65],durs=[3.15,3.0,2.85];
+  return F.map((f,i)=>{const p=bez(.6,0,.22,1)(cl(t/durs[i]));const loopL=0.5+0.4*(0.5-0.5*Math.cos(TAU*cl(t-0.15,0,9)/P));
+  return {c:f.c-TAU*turns[i]*(1-p),L:lerp(loopL,f.L,R),o:ss(0,.25,t)};});}};
+// 2 — Pour : the C pours out of its opening (counter-clockwise); each arc slips under the one above
+A.pour={dur:3.0,fn(t){const S=F[2].max-0.28;return F.map((f,i)=>{const d=[0.36,0.18,0][i];const D=0.95+0.32*(S-f.c)/Math.PI;
+  const p=bez(.55,0,.15,1)(cl((t-d)/D));const q=bez(.4,0,.2,1)(cl((t-d-0.08)/(D+0.15)));
+  return {c:lerp(S,f.c,p),L:lerp(0.5,f.L,q),o:ss(d,d+0.14,t)};});}};
+// 3 — Fan : pieces start stacked under the coral arc and slide out one by one, revealing the layering
+A.fan={dur:2.7,fn(t){const g=-0.9*(1-bez(.6,0,.2,1)(cl(t/1.9)));return F.map((f,i)=>{const d=[0.62,0.38,0][i];
+  const off=(F[2].c-f.c);const p=bez(.62,0,.18,1.06)(cl((t-d)/1.35));return {c:f.c+off*(1-p)+g,L:f.L,o:ss(0,.3,t)};});}};
+// 4 — Loader : loopable breathing spinner for the app, then resolves into the C
+A.loader={dur:4.2,fn(t){const tc=2.6,P=1.3,w=TAU/1.05;return F.map((f,i)=>{const ph=f.c-F[2].c;
+  const loopC=t=>F[2].c-TAU*1.4+ph+w*t+0.35*Math.sin(TAU*t/P);const loopL=t=>0.5+0.5*(0.5-0.5*Math.cos(TAU*t/P));
+  const R=bez(.45,0,.15,1)(cl((t-tc)/1.25));let target=f.c;const end=loopC(tc+1.25);while(target<end-0.15)target+=TAU;
+  return {c:lerp(loopC(t),target,R),L:lerp(loopL(t),f.L,R),o:ss(0,.25,t)};});}};
+// engine: smear (liquid trail) + morph toward clean capsule while moving / short
+function state(anim,i,t){const dt=1/240;const a=anim.fn(Math.max(0,t-dt))[i],b=anim.fn(t+dt)[i],n=anim.fn(t)[i];
+  const v=(b.c-a.c)/(2*dt),vL=(b.L-a.L)/(2*dt);const sm=0.045*Math.abs(v);
+  let T=n.c-n.L/2,H=n.c+n.L/2;if(v>0)T-=sm;else H+=sm;
+  const f=F[i];const m=ss(.72,1,n.L/f.L)*(1-ss(.25,2.2,Math.abs(v)));
+  return {T,H,o:n.o,m,k:liquid(v>0?0:v,v>0?v:0)};}
+
+const PAL=[['Corail','#F8532F'],['Lilas','#9D8BEF'],['Lime','#A8D134'],['Lilas clair','#B9ADF5'],['Prune','#5E5568'],['Lime clair','#C8E66A'],['Orange','#FD6644'],['Ciel','#4CB6DA'],['Jaune','#FFC83D'],['Rose','#FA738B'],['Vert Sobeys','#025436'],['Encre','#2B2035']];
+const MODELS=[{name:'Actuel',c:{top:'#F8532F',left:'#9D8BEF',bottom:'#A8D134'}},{name:'V1 — Corail déplacé',c:{top:'#9D8BEF',left:'#A8D134',bottom:'#F8532F'}},{name:'V2 — Lilas, ciel, lime',c:{top:'#9D8BEF',left:'#4CB6DA',bottom:'#A8D134'}},{name:'V3 — Lilas, ciel, orange',c:{top:'#9D8BEF',left:'#4CB6DA',bottom:'#FD6644'}},{name:'V4 — Orange, lilas clair, jaune',c:{top:'#FD6644',left:'#B9ADF5',bottom:'#FFC83D'}}];
+const SLOTS=[['top','Haut'],['left','Gauche'],['bottom','Bas']];
+let custom={...MODELS[0].c};try{const s=JSON.parse(localStorage.getItem('campus-custom')||'null');if(s&&s.top)custom=s;}catch(e){}
+const saveCustom=()=>{try{localStorage.setItem('campus-custom',JSON.stringify(custom));}catch(e){}};
+let sel=0;const CU=()=>MODELS.length;
+const cur=()=>sel===CU()?custom:MODELS[sel].c;
+const nameOf=h=>(PAL.find(p=>p[1]===h)||['?'])[0];
+const textCol=h=>({'#A8D134':'#86AE1E','#C8E66A':'#86AE1E','#B9ADF5':'#8B79E6','#FFC83D':'#C99400','#4CB6DA':'#2F9CC2'}[h]||h);
+const NSS='http://www.w3.org/2000/svg';const $=id=>document.getElementById(id);
+function symbolSVG(c,attr){return `<svg ${attr||''} viewBox="-2 -2 199 209" xmlns="${NSS}"><path transform="translate(${PIECES[0].ox} ${PIECES[0].oy})" d="${PIECES[0].d}" fill="${c.bottom}"/><path transform="translate(${PIECES[1].ox} ${PIECES[1].oy})" d="${PIECES[1].d}" fill="${c.left}"/><path transform="translate(${PIECES[2].ox} ${PIECES[2].oy})" d="${PIECES[2].d}" fill="${c.top}"/></svg>`;}
+function logoSVG(c,word){const a=LOGO.arcs;return `<svg viewBox="-4 -4 ${LOGO.w+8} ${LOGO.h+8}" xmlns="${NSS}"><path transform="translate(${a.bottom.x} ${a.bottom.y})" d="${a.bottom.d}" fill="${c.bottom}"/><path transform="translate(${a.left.x} ${a.left.y})" d="${a.left.d}" fill="${c.left}"/><path transform="translate(${a.top.x} ${a.top.y})" d="${a.top.d}" fill="${c.top}"/>`+LOGO.word.map(w=>`<path transform="translate(${w.x} ${w.y})" d="${w.d}" fill="${word}"/>`).join('')+`</svg>`;}
+function buildModels(){
+  $('models').innerHTML=MODELS.map((m,i)=>`<button class="model${sel===i?' on':''}" data-i="${i}" title="${m.name}">${symbolSVG(m.c)}${m.name.split(' — ')[0]}</button>`).join('')+`<button class="model${sel===CU()?' on':''}" data-i="${CU()}">${sel===CU()?symbolSVG(custom):'<i class="plus"></i>'}Perso</button>`;
+  $('models').querySelectorAll('.model').forEach(b=>b.onclick=()=>{sel=+b.dataset.i;if(sel===CU())customName=null;render();});}
+function buildSlots(){const c=custom;
+  $('slots').innerHTML=SLOTS.map(([k,l])=>`<div class="slot"><div class="slot-h">${l} <span>${nameOf(c[k])} ${c[k]}</span></div><div class="sw" data-k="${k}">${PAL.map(([n,h])=>`<button title="${n} ${h}" aria-label="${l} : ${n}" data-h="${h}" class="${h===c[k]?'on':''}" style="background:${h}"></button>`).join('')}</div></div>`).join('');
+  $('slots').querySelectorAll('.sw').forEach(sw=>sw.querySelectorAll('button').forEach(b=>b.onclick=()=>{custom[sw.dataset.k]=b.dataset.h;customName=null;saveCustom();render();}));}
+function render(){const c=cur();buildModels();$('custom').classList.toggle('open',sel===CU());if(sel===CU())buildSlots();
+  const nm=sel===CU()?(customName||'Couleurs perso'):MODELS[sel].name;$('curName').textContent=nm;$('heroName').textContent=sel===CU()?(customName||'Couleurs perso'):MODELS[sel].name;
+  $('hero').innerHTML=logoSVG(c,'#2B2035')+`<div class="tag"><span style="color:${textCol(c.top)}">Learn.</span> <span style="color:${textCol(c.left)}">Connect.</span> <span style="color:${textCol(c.bottom)}">Do.</span></div>`;
+  $('symCream').innerHTML=symbolSVG(c,'class="sym"');$('symInk').innerHTML=symbolSVG(c,'class="sym"');
+  $('appIcon').innerHTML=`<div class="icon">${symbolSVG(c)}</div>`;
+  $('logoInk').innerHTML=logoSVG(c,'#FAF8F5');
+  $('sizes').innerHTML=`<div class="sizes">${[64,32,16].map(s=>`<div><div style="width:${s}px">${symbolSVG(c,'style="width:100%;display:block"')}</div>${s} px</div>`).join('')}</div>`;
+  if(parts){parts[0].grp.setAttribute('fill',c.bottom);parts[1].grp.setAttribute('fill',c.left);parts[2].grp.setAttribute('fill',c.top);}}
+/* animation */
+let parts=null,animT=0,animKey='spinner';
+const ANIMS=[['spinner','01 Spinner'],['spinres','01 B'],['pour','02 Coulée'],['loader','03 Chargement']];
+function buildAnimSel(){$('animSel').innerHTML=ANIMS.map(([k,l])=>`<button class="btn${k===animKey?' dark':''}" data-k="${k}">${l}</button>`).join('');$('animSel').querySelectorAll('button').forEach(b=>b.onclick=()=>{animKey=b.dataset.k;animT=0;buildAnimSel();});}
+function animInit(){const svg=document.createElementNS(NSS,'svg');svg.setAttribute('viewBox','-12 -12 220 229');const g=document.createElementNS(NSS,'g');svg.appendChild(g);$('anim').appendChild(svg);
+  parts=PIECES.map(p=>{const grp=document.createElementNS(NSS,'g');const main=document.createElementNS(NSS,'path');let ext=null;if(p.ext){ext=document.createElementNS(NSS,'path');grp.appendChild(ext);}grp.appendChild(main);g.appendChild(grp);return {grp,main,ext};});}
+function animDraw(t){const an=A[animKey];PIECES.forEach((p,i)=>{const st=state(an,i,t);parts[i].main.setAttribute('d',shape(p.ring,p,st,p.cap));if(p.ext)parts[i].ext.setAttribute('d',shape(p.extRing,p,st,p.extCap));parts[i].grp.setAttribute('opacity',st.o==null?1:st.o);});}
+let last=performance.now();function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;animT+=dt;if(animT>A[animKey].dur+1.6)animT=0;animDraw(Math.min(animT,A[animKey].dur));requestAnimationFrame(loop);}
+const toast=m=>{['toast','toast2'].forEach(id=>$(id).textContent=m);clearTimeout(toast.t);toast.t=setTimeout(()=>['toast','toast2'].forEach(id=>$(id).textContent=''),2400);};
+$('replay').onclick=()=>{animT=0;};
+$('rot').onclick=()=>{const c=custom;custom={top:c.bottom,left:c.top,bottom:c.left};saveCustom();render();};
+$('swapLR').onclick=()=>{const c=custom;custom={top:c.top,left:c.bottom,bottom:c.left};saveCustom();render();};
+$('copy').onclick=async()=>{const c=custom;const s=`Haut ${nameOf(c.top)} ${c.top} · Gauche ${nameOf(c.left)} ${c.left} · Bas ${nameOf(c.bottom)} ${c.bottom}`;try{await navigator.clipboard.writeText(s);toast('Copié.');}catch(e){toast(s);}};
+let customName=null;
+let pins=[];try{pins=JSON.parse(localStorage.getItem('campus-pins')||'[]');}catch(e){}
+const savePins=()=>{try{localStorage.setItem('campus-pins',JSON.stringify(pins));}catch(e){}};
+function renderPins(){if(!pins.length){$('pins').innerHTML='<p class="empty">Épinglez un modèle ou vos couleurs perso pour les garder ici. Cliquez une version épinglée pour la recharger.</p>';return;}
+  $('pins').innerHTML=pins.map((p,i)=>`<div class="pin" data-i="${i}"><button class="x" data-x="${i}" aria-label="Retirer">×</button>${symbolSVG(p.c)}<b>${p.name}</b><span class="hex">${p.c.top} · ${p.c.left} · ${p.c.bottom}</span></div>`).join('');
+  $('pins').querySelectorAll('.pin').forEach(el=>el.onclick=e=>{if(e.target.dataset.x!=null){pins.splice(+e.target.dataset.x,1);savePins();renderPins();return;}const p=pins[+el.dataset.i];custom={...p.c};customName=p.name;saveCustom();sel=CU();render();window.scrollTo({top:0,behavior:'smooth'});});}
+$('pinBtn').onclick=()=>{const isC=sel===CU();const n=isC?(customName||`Perso ${pins.filter(p=>p.name.startsWith('Perso')).length+1}`):MODELS[sel].name;pins.push({name:n,c:{...cur()}});savePins();renderPins();toast('Version épinglée.');};
+$('clearPins').onclick=()=>{pins=[];savePins();renderPins();};
+buildAnimSel();animInit();render();renderPins();requestAnimationFrame(loop);
+</script>
+</body>
+</html>
