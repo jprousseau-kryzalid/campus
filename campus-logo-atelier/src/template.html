@@ -17,6 +17,7 @@ h1{font-size:19px;letter-spacing:-.02em;margin:0 12px 0 0;white-space:nowrap}
 .model svg{width:26px;height:26px}
 .model:hover{border-color:rgba(43,32,53,.35)}
 .model.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.model .rm{margin-left:2px;font-size:15px;line-height:1;color:var(--muted);padding:0 2px;border-radius:6px}.model .rm:hover{background:rgba(43,32,53,.08);color:var(--ink)}
 .model .plus{width:26px;height:26px;border-radius:50%;background:conic-gradient(#F8532F,#FFC83D,#A8D134,#4CB6DA,#9D8BEF,#FA738B,#F8532F);display:block}
 .custom{max-width:1320px;margin:0 auto;padding:0 28px 16px;display:none;gap:24px;flex-wrap:wrap;align-items:flex-end}
 .custom.open{display:flex}
@@ -59,10 +60,10 @@ main{max-width:1320px;margin:0 auto;padding:24px 28px 64px;display:flex;flex-dir
 </head>
 <body>
 <div class="top">
-  <div class="bar"><h1>Atelier couleurs</h1><div class="models" id="models"></div><button class="btn dark" id="pinBtn">Épingler</button><span class="toast" id="toast2"></span><span id="curName" style="font-size:13px;font-weight:600;color:var(--muted)"></span></div>
+  <div class="bar"><h1>Atelier couleurs</h1><div class="models" id="models"></div><span class="toast" id="toast2"></span><span id="curName" style="font-size:13px;font-weight:600;color:var(--muted)"></span></div>
   <div class="custom" id="custom">
     <div id="slots" style="display:flex;gap:24px;flex-wrap:wrap"></div>
-    <div class="acts"><button class="btn" id="rot">↻ Faire tourner</button><button class="btn" id="swapLR">⇅ Gauche / bas</button><button class="btn" id="copy">Copier les valeurs</button><span class="toast" id="toast"></span></div>
+    <div class="acts"><button class="btn" id="rot">↻ Faire tourner</button><button class="btn" id="swapLR">⇅ Gauche / bas</button><button class="btn dark" id="pinBtn">Épingler ces couleurs</button><button class="btn" id="copy">Copier les valeurs</button><span class="toast" id="toast"></span></div>
   </div>
 </div>
 <main>
@@ -75,8 +76,6 @@ main{max-width:1320px;margin:0 auto;padding:24px 28px 64px;display:flex;flex-dir
     <section class="card c4"><div class="st cream" id="sizes"></div><div class="cap">Petites tailles</div></section>
     <section class="card c12 anim"><div class="st cream" id="anim" style="min-height:300px"></div><div class="cap"><span>Animation avec ces couleurs</span><span class="animsel"><span class="animsel" id="animSel"></span><button class="btn" id="replay">Rejouer</button></span></div></section>
   </div>
-  <div class="sectionh"><h2>Épinglées</h2><button class="btn" id="clearPins">Tout retirer</button></div>
-  <div class="pins" id="pins"></div>
 </main>
 <script>
 /*LOGO*/
@@ -86,21 +85,22 @@ const MODELS=[{name:'Actuel',c:{top:'#F8532F',left:'#9D8BEF',bottom:'#A8D134'}},
 const SLOTS=[['top','Haut'],['left','Gauche'],['bottom','Bas']];
 let custom={...MODELS[0].c};try{const s=JSON.parse(localStorage.getItem('campus-custom')||'null');if(s&&s.top)custom=s;}catch(e){}
 const saveCustom=()=>{try{localStorage.setItem('campus-custom',JSON.stringify(custom));}catch(e){}};
-let sel=0;const CU=()=>MODELS.length;
-const cur=()=>sel===CU()?custom:MODELS[sel].c;
+let sel=0;let pins=[];try{pins=JSON.parse(localStorage.getItem('campus-pins')||'[]');}catch(e){}
+const ALL=()=>MODELS.concat(pins);const CU=()=>ALL().length;
+const cur=()=>sel===CU()?custom:ALL()[sel].c;
 const nameOf=h=>(PAL.find(p=>p[1]===h)||['?'])[0];
 const textCol=h=>({'#A8D134':'#86AE1E','#C8E66A':'#86AE1E','#B9ADF5':'#8B79E6','#FFC83D':'#C99400','#4CB6DA':'#2F9CC2'}[h]||h);
 const NSS='http://www.w3.org/2000/svg';const $=id=>document.getElementById(id);
 function symbolSVG(c,attr){return `<svg ${attr||''} viewBox="-2 -2 199 209" xmlns="${NSS}"><path transform="translate(${PIECES[0].ox} ${PIECES[0].oy})" d="${PIECES[0].d}" fill="${c.bottom}"/><path transform="translate(${PIECES[1].ox} ${PIECES[1].oy})" d="${PIECES[1].d}" fill="${c.left}"/><path transform="translate(${PIECES[2].ox} ${PIECES[2].oy})" d="${PIECES[2].d}" fill="${c.top}"/></svg>`;}
 function logoSVG(c,word){const a=LOGO.arcs;return `<svg viewBox="-4 -4 ${LOGO.w+8} ${LOGO.h+8}" xmlns="${NSS}"><path transform="translate(${a.bottom.x} ${a.bottom.y})" d="${a.bottom.d}" fill="${c.bottom}"/><path transform="translate(${a.left.x} ${a.left.y})" d="${a.left.d}" fill="${c.left}"/><path transform="translate(${a.top.x} ${a.top.y})" d="${a.top.d}" fill="${c.top}"/>`+LOGO.word.map(w=>`<path transform="translate(${w.x} ${w.y})" d="${w.d}" fill="${word}"/>`).join('')+`</svg>`;}
 function buildModels(){
-  $('models').innerHTML=MODELS.map((m,i)=>`<button class="model${sel===i?' on':''}" data-i="${i}" title="${m.name}">${symbolSVG(m.c)}${m.name.split(' — ')[0]}</button>`).join('')+`<button class="model${sel===CU()?' on':''}" data-i="${CU()}">${sel===CU()?symbolSVG(custom):'<i class="plus"></i>'}Perso</button>`;
-  $('models').querySelectorAll('.model').forEach(b=>b.onclick=()=>{sel=+b.dataset.i;if(sel===CU())customName=null;render();});}
+  $('models').innerHTML=ALL().map((m,i)=>`<button class="model${sel===i?' on':''}" data-i="${i}" title="${m.name}">${symbolSVG(m.c)}${m.name.split(' — ')[0]}${i>=MODELS.length?`<span class="rm" data-rm="${i-MODELS.length}" aria-label="Retirer">×</span>`:''}</button>`).join('')+`<button class="model${sel===CU()?' on':''}" data-i="${CU()}">${sel===CU()?symbolSVG(custom):'<i class="plus"></i>'}Perso</button>`;
+  $('models').querySelectorAll('.model').forEach(b=>b.onclick=e=>{if(e.target.dataset.rm!=null){const j=+e.target.dataset.rm;pins.splice(j,1);savePins();const idx=MODELS.length+j;if(sel===idx)sel=0;else if(sel>idx)sel--;render();return;}sel=+b.dataset.i;render();});}
 function buildSlots(){const c=custom;
   $('slots').innerHTML=SLOTS.map(([k,l])=>`<div class="slot"><div class="slot-h">${l} <span>${nameOf(c[k])} ${c[k]}</span></div><div class="sw" data-k="${k}">${PAL.map(([n,h])=>`<button title="${n} ${h}" aria-label="${l} : ${n}" data-h="${h}" class="${h===c[k]?'on':''}" style="background:${h}"></button>`).join('')}</div></div>`).join('');
-  $('slots').querySelectorAll('.sw').forEach(sw=>sw.querySelectorAll('button').forEach(b=>b.onclick=()=>{custom[sw.dataset.k]=b.dataset.h;customName=null;saveCustom();render();}));}
+  $('slots').querySelectorAll('.sw').forEach(sw=>sw.querySelectorAll('button').forEach(b=>b.onclick=()=>{custom[sw.dataset.k]=b.dataset.h;saveCustom();render();}));}
 function render(){const c=cur();buildModels();$('custom').classList.toggle('open',sel===CU());if(sel===CU())buildSlots();
-  const nm=sel===CU()?(customName||'Couleurs perso'):MODELS[sel].name;$('curName').textContent=nm;$('heroName').textContent=sel===CU()?(customName||'Couleurs perso'):MODELS[sel].name;
+  const nm=sel===CU()?'Couleurs perso':ALL()[sel].name;$('curName').textContent=nm;$('heroName').textContent=nm;
   $('hero').innerHTML=logoSVG(c,'#2B2035')+`<div class="tag"><span style="color:${textCol(c.top)}">Learn.</span> <span style="color:${textCol(c.left)}">Connect.</span> <span style="color:${textCol(c.bottom)}">Do.</span></div>`;
   $('symCream').innerHTML=symbolSVG(c,'class="sym"');$('symInk').innerHTML=symbolSVG(c,'class="sym"');
   $('appIcon').innerHTML=`<div class="icon">${symbolSVG(c)}</div>`;
@@ -120,15 +120,9 @@ $('replay').onclick=()=>{animT=0;};
 $('rot').onclick=()=>{const c=custom;custom={top:c.bottom,left:c.top,bottom:c.left};saveCustom();render();};
 $('swapLR').onclick=()=>{const c=custom;custom={top:c.top,left:c.bottom,bottom:c.left};saveCustom();render();};
 $('copy').onclick=async()=>{const c=custom;const s=`Haut ${nameOf(c.top)} ${c.top} · Gauche ${nameOf(c.left)} ${c.left} · Bas ${nameOf(c.bottom)} ${c.bottom}`;try{await navigator.clipboard.writeText(s);toast('Copié.');}catch(e){toast(s);}};
-let customName=null;
-let pins=[];try{pins=JSON.parse(localStorage.getItem('campus-pins')||'[]');}catch(e){}
 const savePins=()=>{try{localStorage.setItem('campus-pins',JSON.stringify(pins));}catch(e){}};
-function renderPins(){if(!pins.length){$('pins').innerHTML='<p class="empty">Épinglez un modèle ou vos couleurs perso pour les garder ici. Cliquez une version épinglée pour la recharger.</p>';return;}
-  $('pins').innerHTML=pins.map((p,i)=>`<div class="pin" data-i="${i}"><button class="x" data-x="${i}" aria-label="Retirer">×</button>${symbolSVG(p.c)}<b>${p.name}</b><span class="hex">${p.c.top} · ${p.c.left} · ${p.c.bottom}</span></div>`).join('');
-  $('pins').querySelectorAll('.pin').forEach(el=>el.onclick=e=>{if(e.target.dataset.x!=null){pins.splice(+e.target.dataset.x,1);savePins();renderPins();return;}const p=pins[+el.dataset.i];custom={...p.c};customName=p.name;saveCustom();sel=CU();render();window.scrollTo({top:0,behavior:'smooth'});});}
-$('pinBtn').onclick=()=>{const isC=sel===CU();const n=isC?(customName||`Perso ${pins.filter(p=>p.name.startsWith('Perso')).length+1}`):MODELS[sel].name;pins.push({name:n,c:{...cur()}});savePins();renderPins();toast('Version épinglée.');};
-$('clearPins').onclick=()=>{pins=[];savePins();renderPins();};
-buildAnimSel();animInit();render();renderPins();requestAnimationFrame(loop);
+$('pinBtn').onclick=()=>{let n=1;while(pins.some(p=>p.name==='Perso '+n))n++;pins.push({name:'Perso '+n,c:{...custom}});savePins();sel=MODELS.length+pins.length-1;render();toast('Épinglée dans la barre du haut.');};
+buildAnimSel();animInit();render();requestAnimationFrame(loop);
 </script>
 </body>
 </html>
