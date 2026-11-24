@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Campus — Atelier couleurs du logo</title>
+<title>Campus — Logo colour lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#2B2035;--cream:#FAF8F5;--line:rgba(43,32,53,.12);--muted:#6E6578}
@@ -21,10 +21,10 @@ h1{font-size:19px;letter-spacing:-.02em;margin:0 12px 0 0;white-space:nowrap}
 .model .plus{width:26px;height:26px;border-radius:50%;background:conic-gradient(#F8532F,#FFC83D,#A8D134,#4CB6DA,#9D8BEF,#FA738B,#F8532F);display:block}
 .custom{max-width:1320px;margin:0 auto;padding:0 28px 16px;display:none;gap:24px;flex-wrap:wrap;align-items:flex-end}
 .custom.open{display:flex}
-.slot{min-width:250px}
+.slot{min-width:300px}
 .slot-h{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:8px}
 .slot-h span{font-weight:600;color:var(--muted);font-size:11px;font-family:ui-monospace,Menlo,monospace}
-.sw{display:grid;grid-template-columns:repeat(12,1fr);gap:5px}
+.sw{display:grid;grid-template-columns:repeat(14,1fr);gap:5px}
 .sw button{width:22px;height:22px;border-radius:50%;border:none;cursor:pointer;padding:0;outline-offset:2px}
 .sw button.on{outline:2px solid var(--ink)}
 .acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
@@ -60,21 +60,21 @@ main{max-width:1320px;margin:0 auto;padding:24px 28px 64px;display:flex;flex-dir
 </head>
 <body>
 <div class="top">
-  <div class="bar"><h1>Atelier couleurs</h1><div class="models" id="models"></div><span class="toast" id="toast2"></span><span id="curName" style="font-size:13px;font-weight:600;color:var(--muted)"></span></div>
+  <div class="bar"><h1>Colour lab</h1><div class="models" id="models"></div><span class="toast" id="toast2"></span><span id="curName" hidden></span></div>
   <div class="custom" id="custom">
     <div id="slots" style="display:flex;gap:24px;flex-wrap:wrap"></div>
-    <div class="acts"><button class="btn" id="rot">↻ Faire tourner</button><button class="btn" id="swapLR">⇅ Gauche / bas</button><button class="btn dark" id="pinBtn">Épingler ces couleurs</button><button class="btn" id="copy">Copier les valeurs</button><span class="toast" id="toast"></span></div>
+    <div class="acts"><button class="btn" id="rot">↻ Rotate</button><button class="btn" id="swapLR">⇅ Left / bottom</button><button class="btn dark" id="pinBtn">Pin these colours</button><button class="btn" id="copy">Copy values</button><span class="toast" id="toast"></span></div>
   </div>
 </div>
 <main>
   <div class="grid">
-    <section class="card hero c12"><div class="st cream" id="hero"></div><div class="cap"><span>Logo horizontal + slogan</span><span id="heroName"></span></div></section>
-    <section class="card c4"><div class="st cream" id="symCream"></div><div class="cap">Symbole · crème</div></section>
-    <section class="card c4"><div class="st ink" id="symInk"></div><div class="cap">Symbole · encre</div></section>
-    <section class="card c4"><div class="st tint" id="appIcon"></div><div class="cap">Icône d’app</div></section>
-    <section class="card c8"><div class="st ink inkLogo" id="logoInk"></div><div class="cap">Logo renversé · encre (mot en crème)</div></section>
-    <section class="card c4"><div class="st cream" id="sizes"></div><div class="cap">Petites tailles</div></section>
-    <section class="card c12 anim"><div class="st cream" id="anim" style="min-height:300px"></div><div class="cap"><span>Animation avec ces couleurs</span><span class="animsel"><span class="animsel" id="animSel"></span><button class="btn" id="replay">Rejouer</button></span></div></section>
+    <section class="card hero c12"><div class="st cream" id="hero"></div><div class="cap"><span>Horizontal logo + tagline</span><span id="heroName"></span></div></section>
+    <section class="card c4"><div class="st cream" id="symCream"></div><div class="cap">Symbol · cream</div></section>
+    <section class="card c4"><div class="st ink" id="symInk"></div><div class="cap">Symbol · ink</div></section>
+    <section class="card c4"><div class="st tint" id="appIcon"></div><div class="cap">App icon</div></section>
+    <section class="card c8"><div class="st ink inkLogo" id="logoInk"></div><div class="cap">Reversed logo · ink (cream wordmark)</div></section>
+    <section class="card c4"><div class="st cream" id="sizes"></div><div class="cap">Small sizes</div></section>
+    <section class="card c12 anim"><div class="st cream" id="anim" style="min-height:300px"></div><div class="cap"><span>Spinner animation with these colours</span><span class="animsel"><span class="animsel" id="animSel"></span><button class="btn" id="replay">Replay</button></span></div></section>
   </div>
 </main>
 <script>
@@ -173,9 +173,9 @@ A.spinner={dur:2.9,fn(t){return F.map((f,i)=>{const d=[0.10,0.05,0][i];
   const p=bez(.72,0,.22,1.035)(cl((t-d)/2.35));const q=bez(.5,0,.2,1)(cl((t-0.75-d)/1.75));
   return {c:f.c-TAU*1.15*(1-p),L:lerp(0.5,f.L,q),o:ss(0,.25,t)};});}};
 // 1b — Spinner + resolve : spinner start (from rest), loader-style resolution, same length as 01
-A.spinres={dur:3.3,fn(t){const P=1.3;const R=bez(.4,0,.2,1)(cl((t-0.5)/1.9));
-  const turns=[2.404,2.036,1.65],durs=[3.15,3.0,2.85];
-  return F.map((f,i)=>{const p=bez(.6,0,.22,1)(cl(t/durs[i]));const loopL=0.5+0.4*(0.5-0.5*Math.cos(TAU*cl(t-0.15,0,9)/P));
+A.spinres={dur:2.9,fn(t){const P=1.3;const R=bez(.4,0,.25,1)(cl((t-0.45)/1.75));
+  const turns=[2.404,2.036,1.65],durs=[2.75,2.6,2.45];
+  return F.map((f,i)=>{const p=bez(.55,0,.38,1)(cl(t/durs[i]));const loopL=0.5+0.4*(0.5-0.5*Math.cos(TAU*cl(t-0.15,0,9)/P));
   return {c:f.c-TAU*turns[i]*(1-p),L:lerp(loopL,f.L,R),o:ss(0,.25,t)};});}};
 // 2 — Pour : the C pours out of its opening (counter-clockwise); each arc slips under the one above
 A.pour={dur:3.0,fn(t){const S=F[2].max-0.28;return F.map((f,i)=>{const d=[0.36,0.18,0][i];const D=0.95+0.32*(S-f.c)/Math.PI;
@@ -196,27 +196,27 @@ function state(anim,i,t){const dt=1/240;const a=anim.fn(Math.max(0,t-dt))[i],b=a
   const f=F[i];const m=ss(.72,1,n.L/f.L)*(1-ss(.25,2.2,Math.abs(v)));
   return {T,H,o:n.o,m,k:liquid(v>0?0:v,v>0?v:0)};}
 
-const PAL=[['Corail','#F8532F'],['Lilas','#9D8BEF'],['Lime','#A8D134'],['Lilas clair','#B9ADF5'],['Prune','#5E5568'],['Lime clair','#C8E66A'],['Orange','#FD6644'],['Ciel','#4CB6DA'],['Jaune','#FFC83D'],['Rose','#FA738B'],['Vert Sobeys','#025436'],['Encre','#2B2035']];
-const MODELS=[{name:'Actuel',c:{top:'#F8532F',left:'#9D8BEF',bottom:'#A8D134'}},{name:'V1 — Corail déplacé',c:{top:'#9D8BEF',left:'#A8D134',bottom:'#F8532F'}},{name:'V2 — Lilas, ciel, lime',c:{top:'#9D8BEF',left:'#4CB6DA',bottom:'#A8D134'}},{name:'V3 — Lilas, ciel, orange',c:{top:'#9D8BEF',left:'#4CB6DA',bottom:'#FD6644'}},{name:'V4 — Orange, lilas clair, jaune',c:{top:'#FD6644',left:'#B9ADF5',bottom:'#FFC83D'}}];
-const SLOTS=[['top','Haut'],['left','Gauche'],['bottom','Bas']];
+const PAL=[['Coral','#F8532F'],['Lilac','#9D8BEF'],['Lime','#A8D134'],['Light lilac','#B9ADF5'],['Plum','#5E5568'],['Light lime','#C8E66A'],['Orange','#FD6644'],['Sky','#4CB6DA'],['Yellow','#FFC83D'],['Pink','#FA738B'],['Sobeys green','#025436'],['Emerald','#1FAE6E'],['Boreal','#22936A'],['Ink','#2B2035']];
+const MODELS=[{name:'Current',c:{top:'#F8532F',left:'#9D8BEF',bottom:'#A8D134'}},{name:'V1 — Coral moved',c:{top:'#9D8BEF',left:'#A8D134',bottom:'#F8532F'}},{name:'V2 — Yellow, light lilac, orange',c:{top:'#FFC83D',left:'#B9ADF5',bottom:'#FD6644'}},{name:'V3 — Boreal, lilac, light lime',c:{top:'#22936A',left:'#9D8BEF',bottom:'#C8E66A'}},{name:'V4 — Lilac, sky, lime',c:{top:'#9D8BEF',left:'#4CB6DA',bottom:'#A8D134'}},{name:'V5 — Lilac, sky, orange',c:{top:'#9D8BEF',left:'#4CB6DA',bottom:'#FD6644'}}];
+const SLOTS=[['top','Top'],['left','Left'],['bottom','Bottom']];
 let custom={...MODELS[0].c};try{const s=JSON.parse(localStorage.getItem('campus-custom')||'null');if(s&&s.top)custom=s;}catch(e){}
 const saveCustom=()=>{try{localStorage.setItem('campus-custom',JSON.stringify(custom));}catch(e){}};
 let sel=0;let pins=[];try{pins=JSON.parse(localStorage.getItem('campus-pins')||'[]');}catch(e){}
 const ALL=()=>MODELS.concat(pins);const CU=()=>ALL().length;
 const cur=()=>sel===CU()?custom:ALL()[sel].c;
 const nameOf=h=>(PAL.find(p=>p[1]===h)||['?'])[0];
-const textCol=h=>({'#A8D134':'#86AE1E','#C8E66A':'#86AE1E','#B9ADF5':'#8B79E6','#FFC83D':'#C99400','#4CB6DA':'#2F9CC2'}[h]||h);
+const textCol=h=>({'#A8D134':'#86AE1E','#C8E66A':'#86AE1E','#B9ADF5':'#8B79E6','#FFC83D':'#C99400','#4CB6DA':'#2F9CC2','#C8E66A':'#86AE1E'}[h]||h);
 const NSS='http://www.w3.org/2000/svg';const $=id=>document.getElementById(id);
 function symbolSVG(c,attr){return `<svg ${attr||''} viewBox="-2 -2 199 209" xmlns="${NSS}"><path transform="translate(${PIECES[0].ox} ${PIECES[0].oy})" d="${PIECES[0].d}" fill="${c.bottom}"/><path transform="translate(${PIECES[1].ox} ${PIECES[1].oy})" d="${PIECES[1].d}" fill="${c.left}"/><path transform="translate(${PIECES[2].ox} ${PIECES[2].oy})" d="${PIECES[2].d}" fill="${c.top}"/></svg>`;}
 function logoSVG(c,word){const a=LOGO.arcs;return `<svg viewBox="-4 -4 ${LOGO.w+8} ${LOGO.h+8}" xmlns="${NSS}"><path transform="translate(${a.bottom.x} ${a.bottom.y})" d="${a.bottom.d}" fill="${c.bottom}"/><path transform="translate(${a.left.x} ${a.left.y})" d="${a.left.d}" fill="${c.left}"/><path transform="translate(${a.top.x} ${a.top.y})" d="${a.top.d}" fill="${c.top}"/>`+LOGO.word.map(w=>`<path transform="translate(${w.x} ${w.y})" d="${w.d}" fill="${word}"/>`).join('')+`</svg>`;}
 function buildModels(){
-  $('models').innerHTML=ALL().map((m,i)=>`<button class="model${sel===i?' on':''}" data-i="${i}" title="${m.name}">${symbolSVG(m.c)}${m.name.split(' — ')[0]}${i>=MODELS.length?`<span class="rm" data-rm="${i-MODELS.length}" aria-label="Retirer">×</span>`:''}</button>`).join('')+`<button class="model${sel===CU()?' on':''}" data-i="${CU()}">${sel===CU()?symbolSVG(custom):'<i class="plus"></i>'}Perso</button>`;
+  $('models').innerHTML=ALL().map((m,i)=>`<button class="model${sel===i?' on':''}" data-i="${i}" title="${m.name}">${symbolSVG(m.c)}${m.name.split(' — ')[0]}${i>=MODELS.length?`<span class="rm" data-rm="${i-MODELS.length}" aria-label="Remove">×</span>`:''}</button>`).join('')+`<button class="model${sel===CU()?' on':''}" data-i="${CU()}">${sel===CU()?symbolSVG(custom):'<i class="plus"></i>'}Custom</button>`;
   $('models').querySelectorAll('.model').forEach(b=>b.onclick=e=>{if(e.target.dataset.rm!=null){const j=+e.target.dataset.rm;pins.splice(j,1);savePins();const idx=MODELS.length+j;if(sel===idx)sel=0;else if(sel>idx)sel--;render();return;}sel=+b.dataset.i;render();});}
 function buildSlots(){const c=custom;
-  $('slots').innerHTML=SLOTS.map(([k,l])=>`<div class="slot"><div class="slot-h">${l} <span>${nameOf(c[k])} ${c[k]}</span></div><div class="sw" data-k="${k}">${PAL.map(([n,h])=>`<button title="${n} ${h}" aria-label="${l} : ${n}" data-h="${h}" class="${h===c[k]?'on':''}" style="background:${h}"></button>`).join('')}</div></div>`).join('');
+  $('slots').innerHTML=SLOTS.map(([k,l])=>`<div class="slot"><div class="slot-h">${l} <span>${nameOf(c[k])} ${c[k]}</span></div><div class="sw" data-k="${k}">${PAL.map(([n,h])=>`<button title="${n} ${h}" aria-label="${l}: ${n}" data-h="${h}" class="${h===c[k]?'on':''}" style="background:${h}"></button>`).join('')}</div></div>`).join('');
   $('slots').querySelectorAll('.sw').forEach(sw=>sw.querySelectorAll('button').forEach(b=>b.onclick=()=>{custom[sw.dataset.k]=b.dataset.h;saveCustom();render();}));}
 function render(){const c=cur();buildModels();$('custom').classList.toggle('open',sel===CU());if(sel===CU())buildSlots();
-  const nm=sel===CU()?'Couleurs perso':ALL()[sel].name;$('curName').textContent=nm;$('heroName').textContent=nm;
+  const nm=sel===CU()?'Custom colours':ALL()[sel].name;$('curName').textContent=nm;$('heroName').textContent=nm;
   $('hero').innerHTML=logoSVG(c,'#2B2035')+`<div class="tag"><span style="color:${textCol(c.top)}">Learn.</span> <span style="color:${textCol(c.left)}">Connect.</span> <span style="color:${textCol(c.bottom)}">Do.</span></div>`;
   $('symCream').innerHTML=symbolSVG(c,'class="sym"');$('symInk').innerHTML=symbolSVG(c,'class="sym"');
   $('appIcon').innerHTML=`<div class="icon">${symbolSVG(c)}</div>`;
@@ -224,9 +224,8 @@ function render(){const c=cur();buildModels();$('custom').classList.toggle('open
   $('sizes').innerHTML=`<div class="sizes">${[64,32,16].map(s=>`<div><div style="width:${s}px">${symbolSVG(c,'style="width:100%;display:block"')}</div>${s} px</div>`).join('')}</div>`;
   if(parts){parts[0].grp.setAttribute('fill',c.bottom);parts[1].grp.setAttribute('fill',c.left);parts[2].grp.setAttribute('fill',c.top);}}
 /* animation */
-let parts=null,animT=0,animKey='spinner';
-const ANIMS=[['spinner','01 Spinner'],['spinres','01 B'],['pour','02 Coulée'],['loader','03 Chargement']];
-function buildAnimSel(){$('animSel').innerHTML=ANIMS.map(([k,l])=>`<button class="btn${k===animKey?' dark':''}" data-k="${k}">${l}</button>`).join('');$('animSel').querySelectorAll('button').forEach(b=>b.onclick=()=>{animKey=b.dataset.k;animT=0;buildAnimSel();});}
+let parts=null,animT=0,animKey='spinner',animBg='cream';
+function buildAnimSel(){$('animSel').innerHTML=[['cream','Cream background'],['ink','Ink background']].map(([k,l])=>`<button class="btn${k===animBg?' dark':''}" data-k="${k}">${l}</button>`).join('');$('animSel').querySelectorAll('button').forEach(b=>b.onclick=()=>{animBg=b.dataset.k;$('anim').classList.toggle('ink',animBg==='ink');$('anim').classList.toggle('cream',animBg==='cream');buildAnimSel();});}
 function animInit(){const svg=document.createElementNS(NSS,'svg');svg.setAttribute('viewBox','-12 -12 220 229');const g=document.createElementNS(NSS,'g');svg.appendChild(g);$('anim').appendChild(svg);
   parts=PIECES.map(p=>{const grp=document.createElementNS(NSS,'g');const main=document.createElementNS(NSS,'path');let ext=null;if(p.ext){ext=document.createElementNS(NSS,'path');grp.appendChild(ext);}grp.appendChild(main);g.appendChild(grp);return {grp,main,ext};});}
 function animDraw(t){const an=A[animKey];PIECES.forEach((p,i)=>{const st=state(an,i,t);parts[i].main.setAttribute('d',shape(p.ring,p,st,p.cap));if(p.ext)parts[i].ext.setAttribute('d',shape(p.extRing,p,st,p.extCap));parts[i].grp.setAttribute('opacity',st.o==null?1:st.o);});}
@@ -235,9 +234,9 @@ const toast=m=>{['toast','toast2'].forEach(id=>$(id).textContent=m);clearTimeout
 $('replay').onclick=()=>{animT=0;};
 $('rot').onclick=()=>{const c=custom;custom={top:c.bottom,left:c.top,bottom:c.left};saveCustom();render();};
 $('swapLR').onclick=()=>{const c=custom;custom={top:c.top,left:c.bottom,bottom:c.left};saveCustom();render();};
-$('copy').onclick=async()=>{const c=custom;const s=`Haut ${nameOf(c.top)} ${c.top} · Gauche ${nameOf(c.left)} ${c.left} · Bas ${nameOf(c.bottom)} ${c.bottom}`;try{await navigator.clipboard.writeText(s);toast('Copié.');}catch(e){toast(s);}};
+$('copy').onclick=async()=>{const c=custom;const s=`Top ${nameOf(c.top)} ${c.top} · Left ${nameOf(c.left)} ${c.left} · Bottom ${nameOf(c.bottom)} ${c.bottom}`;try{await navigator.clipboard.writeText(s);toast('Copied.');}catch(e){toast(s);}};
 const savePins=()=>{try{localStorage.setItem('campus-pins',JSON.stringify(pins));}catch(e){}};
-$('pinBtn').onclick=()=>{let n=1;while(pins.some(p=>p.name==='Perso '+n))n++;pins.push({name:'Perso '+n,c:{...custom}});savePins();sel=MODELS.length+pins.length-1;render();toast('Épinglée dans la barre du haut.');};
+$('pinBtn').onclick=()=>{let n=1;while(pins.some(p=>p.name==='Custom '+n))n++;pins.push({name:'Custom '+n,c:{...custom}});savePins();sel=MODELS.length+pins.length-1;render();toast('Pinned to the top bar.');};
 buildAnimSel();animInit();render();requestAnimationFrame(loop);
 </script>
 </body>

@@ -2,7 +2,7 @@
 
 Outil interne pour tester les couleurs du symbole Campus et ses animations.
 
-- `index.html` : l'atelier de couleurs. Choix du modèle (Actuel, V1 à V4), couleurs perso, versions épinglées, et aperçus : logo et slogan, logo renversé, symbole, icône d'app, petites tailles, animation.
+- `index.html` : l'atelier de couleurs. Choix du modèle (Current, V1 à V5), page en anglais, couleurs perso, versions épinglées, et aperçus : logo et slogan, logo renversé, symbole, icône d'app, petites tailles, animation.
 - `animations/index.html` : la page qui compare les animations du symbole (01 Spinner, 01 B, 02 Coulée, 03 Chargement).
 
 Les deux pages sont autonomes, sans dépendance ni étape de build. Seule la police Plus Jakarta Sans est chargée depuis Google Fonts.
